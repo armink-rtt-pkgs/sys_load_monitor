@@ -83,11 +83,19 @@ __exit:
 
 int sys_load_monitor_init(void)
 {
+    static rt_bool_t is_init = RT_FALSE;
+
+    if (is_init)
+    {
+        return RT_EOK;
+    }
+
     /* using hardware system tick timer */
     rt_timer_init(&timer, "sys_load", sys_load_record, RT_NULL, rt_tick_from_millisecond(1000 / SYS_LOAD_MONITOR_FREQ),
             RT_TIMER_FLAG_PERIODIC | RT_TIMER_FLAG_HARD_TIMER);
     rt_timer_start(&timer);
 
+    is_init = RT_TRUE;
     return RT_EOK;
 }
 INIT_PREV_EXPORT(sys_load_monitor_init);
@@ -160,8 +168,8 @@ MSH_CMD_EXPORT_ALIAS(sys_load_monitor_dump, sys_load, dump current system runnin
 
 int sys_load_monitor_deinit(void)
 {
-    //TODO 失能定时器
-    //TODO 资源清零
+    //TODO disable timer
+    //TODO free data
     return RT_EOK;
 }
 
