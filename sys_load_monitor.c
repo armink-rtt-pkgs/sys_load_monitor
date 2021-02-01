@@ -105,10 +105,10 @@ INIT_PREV_EXPORT(sys_load_monitor_init);
  */
 void sys_load_monitor_dump(void)
 {
-    //TODO ¥Ú”°œﬂ≥Ã call stack
+    //TODO call stack
     rt_size_t thread_index = 0;
-    rt_off_t i;
-    rt_size_t record_head, record_tail_bak;
+    rt_off_t i = 0;
+    rt_size_t record_head = 0, record_tail_bak = 0;
     rt_thread_t thread;
     rt_uint32_t priority;
 
